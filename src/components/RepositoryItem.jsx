@@ -1,18 +1,18 @@
 import React from 'react';
+import Text from './Text';
 
-const RepositoryItem = ({item}) => {
-    // repository's full name, description, language, number of forks, number of stars, rating average and number of reviews
+const RepositoryItem = ({ item }) => {
     return (
-        <li key={item.id}>
-            Full name: {item.fullName}, <br/>
-            Description: {item.description}, <br/>
-            Language: {item.language}, <br/>
-            Forks: {item.forksCount}, <br/>
-            Stars: {item.stargazersCount}, <br/>
-            Average rating: {item.ratingAverage}, <br/>
-            Reviews: {item.reviewCount}, <br/>
-            Owner url: {item.ownerAvatarUrl}.
-        </li>
+        <>
+            <Text>Full name: {item.fullName}</Text>
+            <Text>Description: {item.description}</Text>
+            <Text>Language: {item.language}</Text>
+            <Text>Forks: {item.forksCount}</Text>
+            <Text>Stars: {item.stargazersCount}</Text>
+            <Text>Average rating: {item.ratingAverage}</Text>
+            <Text>Reviews: {item.reviewCount}</Text>
+            <Text>Owner url: {item.ownerAvatarUrl}</Text>
+        </>
     );
 };
 
