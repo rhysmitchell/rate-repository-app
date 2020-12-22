@@ -1,10 +1,10 @@
 import React from 'react';
-import { TouchableWithoutFeedback, StyleSheet } from 'react-native';
+import { TouchableWithoutFeedback, StyleSheet, View } from 'react-native';
 import Text from './Text';
 
 const styles = StyleSheet.create({
     container: {
-        padding: 20,
+        padding: 10,
     },
     text: {
         color: '#fff',
@@ -16,10 +16,12 @@ const styles = StyleSheet.create({
 const AppBarTab = props => {
     const { children } = props;
     return (
-        <TouchableWithoutFeedback style={styles.container} {...props}>
-            <Text style={styles.text}>
-                {children}
-            </Text>
+        <TouchableWithoutFeedback {...props}>
+            <View style={styles.container}>
+                <Text style={styles.text}>
+                    {children}
+                </Text>
+            </View>
         </TouchableWithoutFeedback>
     );
 };
