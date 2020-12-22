@@ -1,6 +1,5 @@
 import React from 'react';
 import Text from './Text';
-import theme from '../theme';
 import { StyleSheet, View, Image } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -13,7 +12,6 @@ const styles = StyleSheet.create({
     },
     textContainer: {
         marginLeft: 10,
-        fontSize: theme.fontSizes.subheading,
     },
     avatarContainer: {
         //
@@ -30,7 +28,7 @@ const styles = StyleSheet.create({
     },
     badgeContent: {
         flexDirection: "row",
-        background: '#0366d6',
+        backgroundColor: '#0366d6',
         color: 'white',
         marginTop: 10,
         padding: 3,
@@ -55,7 +53,7 @@ const RepositoryListItem = ({ item }) => {
                 <Text fontWeight="bold">{item.fullName}</Text>
                 <Text>{item.description}</Text>
                 <View style={styles.badgeContainer}>
-                    <Text style={{ background: '#0366d6', color: 'white', marginTop: 2, padding: 3, borderRadius: 2 }}>{item.language}</Text>
+                    <Text style={{ backgroundColor: '#0366d6', color: 'white', marginTop: 2, padding: 3, borderRadius: 2 }}>{item.language}</Text>
                 </View>
                 <View style={styles.indicatorContainer}>
                     <Text>
