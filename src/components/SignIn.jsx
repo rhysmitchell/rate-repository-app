@@ -2,9 +2,20 @@ import React from 'react';
 import { Formik } from 'formik';
 import { TouchableOpacity, View } from 'react-native';
 import FormikTextInput from './FormikTextInput';
+import * as yup from 'yup';
 
 import Text from './Text';
 import theme from '../theme';
+
+const validationSchema = yup.object().shape({
+    username: yup
+        .string()
+        .required('Username is required'),
+    password: yup
+        .string()
+        .min(8, 'Password should have a minimum of 8 characters.')
+        .required('Password is required.'),
+});
 
 const SignIn = () => {
     const initialValues = {
@@ -15,7 +26,10 @@ const SignIn = () => {
     const submitForm = (valules) => console.log(valules);
 
     return (
-        <Formik initialValues={initialValues} onSubmit={submitForm}>
+        <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={submitForm}>
             {({ submitForm }) => <SignInForm onSubmit={submitForm} />}
         </Formik>
     );
