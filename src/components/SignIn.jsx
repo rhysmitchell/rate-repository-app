@@ -6,6 +6,7 @@ import * as yup from 'yup';
 
 import Text from './Text';
 import theme from '../theme';
+import useSignIn from '../hooks/useSignIn';
 
 const validationSchema = yup.object().shape({
     username: yup
@@ -23,7 +24,16 @@ const SignIn = () => {
         password: '',
     };
 
-    const submitForm = (valules) => console.log(valules);
+    const [signIn] = useSignIn();
+
+    const submitForm = async ({ username, password }) => {
+        try {
+            const token = await signIn({ username, password });
+            console.log(token);
+        } catch (e) {
+            console.log(e);
+        }
+    };
 
     return (
         <Formik
