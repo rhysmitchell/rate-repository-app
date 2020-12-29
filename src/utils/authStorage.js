@@ -10,7 +10,7 @@ export default class AuthStorage {
             `${this.namespace}:token`,
         );
 
-        return token ? JSON.parse(token) : [];
+        return token ? JSON.stringify(token) : [];
     }
 
     async setAccessToken(token) {
