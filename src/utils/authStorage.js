@@ -10,11 +10,11 @@ export default class AuthStorage {
             `${this.namespace}:token`,
         );
 
-        return token ? JSON.stringify(token) : [];
+        return token ? JSON.parse(token) : [];
     }
 
     async setAccessToken(token) {
-        await AsyncStorage.setItem(`${this.namespace}:token`, token);
+        await AsyncStorage.setItem(`${this.namespace}:token`, JSON.stringify(token));
     }
 
     async removeAccessToken() {

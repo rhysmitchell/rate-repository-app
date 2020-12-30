@@ -18,7 +18,7 @@ const RepositoryList = () => {
   }
 
   if (error) {
-    return <Text>Error ({error})</Text>
+    return <Text>Error ({error})</Text>;
   }
 
   const { repositories } = data;
