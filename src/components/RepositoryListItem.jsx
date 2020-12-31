@@ -50,13 +50,13 @@ const RepositoryListItem = ({ item }) => {
             </View>
 
             <View style={styles.textContainer}>
-                <Text fontWeight="bold">{item.fullName}</Text>
-                <Text>{item.description}</Text>
+                <Text fontWeight="bold" testID="testFullName">{item.fullName}</Text>
+                <Text testID="testRepoDescription">{item.description}</Text>
                 <View style={styles.badgeContainer}>
-                    <Text style={{ backgroundColor: '#0366d6', color: 'white', marginTop: 2, padding: 3, borderRadius: 2 }}>{item.language}</Text>
+                    <Text style={{ backgroundColor: '#0366d6', color: 'white', marginTop: 2, padding: 3, borderRadius: 2 }} testID="testRepoLanguage">{item.language}</Text>
                 </View>
                 <View style={styles.indicatorContainer}>
-                    <Text>
+                    <Text testID="testRepoStargazersCount">
                         <strong>
                             {item.stargazersCount}
                         </strong>
@@ -64,7 +64,7 @@ const RepositoryListItem = ({ item }) => {
                         Stars
                     </Text>
 
-                    <Text>
+                    <Text testID="testRepoForkCount">
                         <strong>
                             {item.forksCount}
                         </strong>
@@ -72,7 +72,7 @@ const RepositoryListItem = ({ item }) => {
                         Forks
                     </Text>
 
-                    <Text>
+                    <Text testID="testRepoReviewCount">
                         <strong>
                             {item.reviewCount}
                         </strong>
@@ -80,7 +80,7 @@ const RepositoryListItem = ({ item }) => {
                         Reviews
                     </Text>
 
-                    <Text>
+                    <Text testID="testRepoRatingAverage">
                         <strong>
                             {item.ratingAverage}
                         </strong>
