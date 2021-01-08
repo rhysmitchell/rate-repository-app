@@ -1,6 +1,6 @@
 import React from 'react';
 import Text from './Text';
-import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Image, TouchableOpacity, FlatList } from 'react-native';
 import { useHistory, useParams } from 'react-router-native';
 import useRepository from '../hooks/useRepository';
 import * as Linking from "expo-linking";
@@ -47,6 +47,19 @@ const styles = StyleSheet.create({
         paddingLeft: '2em',
         paddingRight: '2em',
     },
+    urlButton: {
+        backgroundColor: theme.colors.primary,
+        padding: 10,
+        margin: 15,
+        height: 40,
+    },
+    badge: {
+        backgroundColor: '#0366d6',
+        color: 'white',
+        marginTop: 2,
+        padding: 3,
+        borderRadius: 2,
+    },
 });
 
 export const RepositoryListItemFromUrl = () => {
@@ -57,7 +70,16 @@ export const RepositoryListItemFromUrl = () => {
         return null;
     }
 
-    return <RepositoryListItem item={item} showUrl={true} />;
+    return <RepositoryListItem item={item}>
+        <View style={styles.openUrlContainer}>
+            <TouchableOpacity
+                onPress={() => Linking.openURL(item.url)}
+                style={styles.urlButton}
+            >
+                <Text style={{ color: 'white', textAlign: 'center', fontWeight: 'bold' }}>Open in GitHub</Text>
+            </TouchableOpacity>
+        </View>
+    </RepositoryListItem>;
 };
 
 export const TouchableRepositoryListItem = ({ item }) => {
@@ -70,7 +92,7 @@ export const TouchableRepositoryListItem = ({ item }) => {
     );
 };
 
-export const RepositoryListItem = ({ item, showUrl }) => {
+export const RepositoryListItem = ({ item, children }) => {
     return (
         <>
             <View style={styles.container}>
@@ -82,7 +104,7 @@ export const RepositoryListItem = ({ item, showUrl }) => {
                     <Text fontWeight="bold" testID="testFullName">{item.fullName}</Text>
                     <Text testID="testRepoDescription">{item.description}</Text>
                     <View style={styles.badgeContainer}>
-                        <Text style={{ backgroundColor: '#0366d6', color: 'white', marginTop: 2, padding: 3, borderRadius: 2 }} testID="testRepoLanguage">{item.language}</Text>
+                        <Text style={styles.badge} testID="testRepoLanguage">{item.language}</Text>
                     </View>
                 </View>
             </View>
@@ -120,22 +142,8 @@ export const RepositoryListItem = ({ item, showUrl }) => {
                         Rating
                     </Text>
             </View>
-            {
-                showUrl && <View style={styles.openUrlContainer}>
-                    <TouchableOpacity style={{
-                        backgroundColor: theme.colors.primary,
-                        padding: 10,
-                        margin: 15,
-                        height: 40,
-                    }}
-                        onPress={() => Linking.openURL(item.url)}
-                        testID='testSubmitButton'
-                    >
-                        <Text style={{ color: 'white', textAlign: 'center', fontWeight: 'bold' }}>Open in GitHub</Text>
-                    </TouchableOpacity>
-                </View>
-            }
 
+            {children}
         </>
     );
 };
