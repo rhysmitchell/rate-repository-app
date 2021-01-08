@@ -5,21 +5,20 @@ import { useHistory, useParams } from 'react-router-native';
 import useRepository from '../hooks/useRepository';
 import * as Linking from "expo-linking";
 import theme from '../theme';
+import NumAbbr from 'number-abbreviate';
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         padding: 10,
         flexDirection: 'row',
-        alignItems: 'center',
         backgroundColor: 'white',
     },
     openUrlContainer: {
-        flex: 1,
         flexDirection: 'column',
         backgroundColor: 'white',
     },
     textContainer: {
+        flex: 1,
         marginLeft: 10,
     },
     avatar: {
@@ -41,10 +40,12 @@ const styles = StyleSheet.create({
         borderRadius: 2
     },
     indicatorContainer: {
-        flex: 4,
         flexDirection: 'row',
         alignItems: 'stretch',
         justifyContent: 'space-between',
+        backgroundColor: 'white',
+        paddingLeft: '2em',
+        paddingRight: '2em',
     },
 });
 
@@ -83,40 +84,41 @@ export const RepositoryListItem = ({ item, showUrl }) => {
                     <View style={styles.badgeContainer}>
                         <Text style={{ backgroundColor: '#0366d6', color: 'white', marginTop: 2, padding: 3, borderRadius: 2 }} testID="testRepoLanguage">{item.language}</Text>
                     </View>
-                    <View style={styles.indicatorContainer}>
-                        <Text testID="testRepoStargazersCount">
-                            <strong>
-                                {item.stargazersCount}
-                            </strong>
-                            {'\n'}
+                </View>
+            </View>
+
+            <View style={styles.indicatorContainer}>
+                <Text testID="testRepoStargazersCount">
+                    <strong>
+                        {NumAbbr(item.stargazersCount, 1)}
+                    </strong>
+                    {'\n'}
                         Stars
                     </Text>
 
-                        <Text testID="testRepoForkCount">
-                            <strong>
-                                {item.forksCount}
-                            </strong>
-                            {'\n'}
+                <Text testID="testRepoForkCount">
+                    <strong>
+                        {NumAbbr(item.forksCount, 1)}
+                    </strong>
+                    {'\n'}
                         Forks
                     </Text>
 
-                        <Text testID="testRepoReviewCount">
-                            <strong>
-                                {item.reviewCount}
-                            </strong>
-                            {'\n'}
+                <Text testID="testRepoReviewCount">
+                    <strong>
+                        {item.reviewCount}
+                    </strong>
+                    {'\n'}
                         Reviews
                     </Text>
 
-                        <Text testID="testRepoRatingAverage">
-                            <strong>
-                                {item.ratingAverage}
-                            </strong>
-                            {'\n'}
+                <Text testID="testRepoRatingAverage">
+                    <strong>
+                        {item.ratingAverage}
+                    </strong>
+                    {'\n'}
                         Rating
                     </Text>
-                    </View>
-                </View>
             </View>
             {
                 showUrl && <View style={styles.openUrlContainer}>
@@ -129,10 +131,11 @@ export const RepositoryListItem = ({ item, showUrl }) => {
                         onPress={() => Linking.openURL(item.url)}
                         testID='testSubmitButton'
                     >
-                        <Text style={{ color: 'white', textAlign: 'center', fontWeight: 'bold' }}>Open GitHub URL</Text>
+                        <Text style={{ color: 'white', textAlign: 'center', fontWeight: 'bold' }}>Open in GitHub</Text>
                     </TouchableOpacity>
                 </View>
             }
+
         </>
     );
 };
