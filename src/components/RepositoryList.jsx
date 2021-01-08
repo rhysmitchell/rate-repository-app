@@ -1,8 +1,8 @@
 
 import React from 'react';
-import { FlatList, View, StyleSheet, Text } from 'react-native';
-import RepositoryListItem from './RepositoryListItem';
-import useRepositories from '../hooks//useRepositories';
+import { FlatList, View, StyleSheet } from 'react-native';
+import { TouchableRepositoryListItem } from './RepositoryListItem';
+import useRepositories from '../hooks/useRepositories';
 
 
 const ItemSeparator = () => <View style={styles.separator} />;
@@ -10,7 +10,7 @@ const ItemSeparator = () => <View style={styles.separator} />;
 export const RepositoryListContainer = props => {
   const { repositories } = props;
   const repositoryNodes = repositories ? repositories.edges.map((edge) => edge.node) : [];
-  const renderItem = ({ item }) => <RepositoryListItem item={item} />;
+  const renderItem = ({ item }) => <TouchableRepositoryListItem item={item} />;
 
   return (
     <FlatList
