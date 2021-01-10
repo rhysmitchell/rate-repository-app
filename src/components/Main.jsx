@@ -6,6 +6,7 @@ import RepositoryList from './RepositoryList';
 import AppBar from './AppBar';
 import SignIn from './SignIn';
 import { RepositoryListItemFromUrl } from './RepositoryListItem';
+import CreateReview from './CreateReview';
 
 const styles = StyleSheet.create({
   container: {
@@ -23,6 +24,9 @@ const Main = () => {
       <Switch>
         <Route path="/signin">
           <SignIn />
+        </Route>
+        <Route path="/create-review">
+          <CreateReview />
         </Route>
         <Route path="/:id" exact>
           <RepositoryListItemFromUrl />
