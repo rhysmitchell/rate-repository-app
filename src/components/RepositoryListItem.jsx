@@ -53,6 +53,11 @@ const styles = StyleSheet.create({
         margin: 15,
         height: 40,
     },
+    urlButtonText: {
+        color: 'white',
+        textAlign: 'center',
+        fontWeight: 'bold',
+    },
     badge: {
         backgroundColor: '#0366d6',
         color: 'white',
@@ -60,7 +65,48 @@ const styles = StyleSheet.create({
         padding: 3,
         borderRadius: 2,
     },
+    separator: {
+        height: 10,
+    },
+    ratingContainer: {
+        textAlign: 'center',
+        borderWidth: 2,
+        borderColor: '#1461ac',
+        width: 50,
+        height: 50,
+        borderRadius: 25,
+        padding: 10,
+        color: '#1461ac',
+    },
+    ratingContentContainer: {
+        flex: 1,
+        marginLeft: 10,
+    },
+    ratingContentDate: {
+        color: '#5b5f62',
+        fontWeight: 600,
+    },
 });
+
+const ReviewItem = ({ review }) => {
+    const formattedCreatedAt = new Date(`${review.createdAt}`).toLocaleDateString();
+
+    return (<>
+        <View style={styles.container}>
+            <View style={styles.ratingContainer}>
+                {review.rating}
+            </View>
+
+            <View style={styles.ratingContentContainer}>
+                <Text fontWeight="bold">{review.user.username}</Text>
+                <Text style={styles.ratingContentDate}>{formattedCreatedAt}</Text>
+                <Text>{review.text}</Text>
+            </View>
+        </View></>
+    );
+};
+
+const ItemSeparator = () => <View style={styles.separator} />;
 
 export const RepositoryListItemFromUrl = () => {
     const { id } = useParams();
@@ -70,16 +116,25 @@ export const RepositoryListItemFromUrl = () => {
         return null;
     }
 
-    return <RepositoryListItem item={item}>
-        <View style={styles.openUrlContainer}>
-            <TouchableOpacity
-                onPress={() => Linking.openURL(item.url)}
-                style={styles.urlButton}
-            >
-                <Text style={{ color: 'white', textAlign: 'center', fontWeight: 'bold' }}>Open in GitHub</Text>
-            </TouchableOpacity>
-        </View>
-    </RepositoryListItem>;
+    const reviewNodes = item.reviews ? item.reviews.edges.map((edge) => edge.node) : [];
+
+    return <FlatList
+        data={reviewNodes}
+        ItemSeparatorComponent={ItemSeparator}
+        renderItem={({ item }) => <ReviewItem review={item} />}
+        keyExtractor={({ id }) => id}
+        ListHeaderComponent={() =>
+            <RepositoryListItem item={item}>
+                <View style={styles.openUrlContainer}>
+                    <TouchableOpacity
+                        onPress={() => Linking.openURL(item.url)}
+                        style={styles.urlButton}
+                    >
+                        <Text style={styles.urlButtonText}>Open in GitHub</Text>
+                    </TouchableOpacity>
+                </View>
+                <ItemSeparator />
+            </RepositoryListItem>} />;
 };
 
 export const TouchableRepositoryListItem = ({ item }) => {
