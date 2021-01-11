@@ -40,7 +40,10 @@ const AppBar = () => {
                         <Link to='/' onPress={signOut} component={AppBarTab}>Sign Out</Link>
                     </>
                 )}
-                {!authorizedUser && <Link to='/signin' component={AppBarTab}>Sign In</Link>}
+                {!authorizedUser && <>
+                    <Link to='/signin' component={AppBarTab}>Sign In</Link>
+                    <Link to='/signup' component={AppBarTab}>Sign Up</Link>
+                </>}
             </ScrollView>
         </View>
     );
