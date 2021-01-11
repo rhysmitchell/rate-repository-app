@@ -105,7 +105,7 @@ const SignUpForm = props => {
             onPress={onSubmit}
             testID='testSubmitButton'
         >
-            <Text style={{ color: 'white', textAlign: 'center', fontWeight: 'bold' }}>Sign in</Text>
+            <Text style={{ color: 'white', textAlign: 'center', fontWeight: 'bold' }}>Sign up</Text>
         </TouchableOpacity>
     </View>;
 };
