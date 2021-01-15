@@ -68,7 +68,7 @@ const useRepositories = (first, sort, searchKeyword) => {
     };
 
     return {
-        repositories: data ? data.repositories : undefined,
+        repositories: data ? data.repositories.edges.map(({ node }) => node) : undefined,
         fetchMore: handleFetchMore,
         loading,
         ...result,

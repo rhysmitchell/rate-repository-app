@@ -6,6 +6,7 @@ import useRepository from '../hooks/useRepository';
 import * as Linking from "expo-linking";
 import theme from '../theme';
 import NumAbbr from 'number-abbreviate';
+import useReviews from '../hooks/useReviews';
 
 const styles = StyleSheet.create({
     container: {
@@ -111,15 +112,20 @@ const ItemSeparator = () => <View style={styles.separator} />;
 export const RepositoryListItemFromUrl = () => {
     const { id } = useParams();
     const item = useRepository({ id });
+    const { reviews, fetchMore } = useReviews({ id, first: 8});
 
     if (!item) {
         return null;
     }
+    const onEndReach = () => {
+        fetchMore();
+    };
 
-    const reviewNodes = item.reviews ? item.reviews.edges.map((edge) => edge.node) : [];
 
     return <FlatList
-        data={reviewNodes}
+        onEndReached={onEndReach}
+        onEndReachedThreshold={0.5}
+        data={reviews}
         ItemSeparatorComponent={ItemSeparator}
         renderItem={({ item }) => <ReviewItem review={item} />}
         keyExtractor={({ id }) => id}

@@ -11,7 +11,6 @@ const ItemSeparator = () => <View style={styles.separator} />;
 
 export const RepositoryListContainer = props => {
   const { repositories, sortOrder, setSortOrder, filter, setFilter, onEndReach } = props;
-  const repositoryNodes = repositories ? repositories.edges.map((edge) => edge.node) : [];
   const renderItem = ({ item }) => <TouchableRepositoryListItem item={item} />;
 
 
@@ -51,7 +50,7 @@ export const RepositoryListContainer = props => {
           <ItemSeparator />
         </>
       }
-      data={repositoryNodes}
+      data={repositories}
       ItemSeparatorComponent={ItemSeparator}
       renderItem={renderItem}
     />
