@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     },
     ratingContentDate: {
         color: '#5b5f62',
-        fontWeight: 600,
+        fontWeight: "600",
     },
 });
 

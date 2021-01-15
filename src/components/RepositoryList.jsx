@@ -10,13 +10,15 @@ import { useDebounce } from 'use-debounce';
 const ItemSeparator = () => <View style={styles.separator} />;
 
 export const RepositoryListContainer = props => {
-  const { repositories, sortOrder, setSortOrder, filter, setFilter } = props;
+  const { repositories, sortOrder, setSortOrder, filter, setFilter, onEndReach } = props;
   const repositoryNodes = repositories ? repositories.edges.map((edge) => edge.node) : [];
   const renderItem = ({ item }) => <TouchableRepositoryListItem item={item} />;
 
 
   return (
     <FlatList
+      onEndReached={onEndReach}
+      onEndReachedThreshold={0.5}
       ListHeaderComponent={
         <>
           <Searchbar
@@ -60,7 +62,12 @@ const RepositoryList = () => {
   const [sortOrder, setSortOrder] = useState("CREATED_AT_DESC");
   const [filter, setFilter] = useState("");
   const [debouncedFilter] = useDebounce(filter, 500);
-  const repositories = useRepositories(sortOrder, debouncedFilter);
+  const { repositories, fetchMore } = useRepositories(8, sortOrder, debouncedFilter);
+
+  const onEndReach = () => {
+    fetchMore();
+  };
+
 
   return <RepositoryListContainer
     repositories={repositories}
@@ -68,6 +75,7 @@ const RepositoryList = () => {
     setSortOrder={setSortOrder}
     filter={filter}
     setFilter={setFilter}
+    onEndReach={onEndReach}
   />;
 };
 
