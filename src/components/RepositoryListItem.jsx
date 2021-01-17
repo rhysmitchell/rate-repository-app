@@ -1,6 +1,7 @@
 import React from 'react';
 import Text from './Text';
 import { StyleSheet, View, Image, TouchableOpacity, FlatList } from 'react-native';
+import ItemSeparator from './ItemSeparator';
 import { useHistory, useParams } from 'react-router-native';
 import useRepository from '../hooks/useRepository';
 import * as Linking from "expo-linking";
@@ -66,9 +67,6 @@ const styles = StyleSheet.create({
         padding: 3,
         borderRadius: 2,
     },
-    separator: {
-        height: 10,
-    },
     ratingContainer: {
         textAlign: 'center',
         borderWidth: 2,
@@ -89,7 +87,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const ReviewItem = ({ review }) => {
+export const ReviewItem = ({ review }) => {
     const formattedCreatedAt = new Date(`${review.createdAt}`).toLocaleDateString();
 
     return (<>
@@ -106,8 +104,6 @@ const ReviewItem = ({ review }) => {
         </View></>
     );
 };
-
-const ItemSeparator = () => <View style={styles.separator} />;
 
 export const RepositoryListItemFromUrl = () => {
     const { id } = useParams();

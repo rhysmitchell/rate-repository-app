@@ -1,13 +1,12 @@
 
 import React, { useState } from 'react';
-import { FlatList, View, StyleSheet } from 'react-native';
+import { FlatList } from 'react-native';
 import RNPickerSelect from "react-native-picker-select";
 import { TouchableRepositoryListItem } from './RepositoryListItem';
+import ItemSeparator from './ItemSeparator';
 import { Searchbar } from 'react-native-paper';
 import useRepositories from '../hooks/useRepositories';
 import { useDebounce } from 'use-debounce';
-
-const ItemSeparator = () => <View style={styles.separator} />;
 
 export const RepositoryListContainer = props => {
   const { repositories, sortOrder, setSortOrder, filter, setFilter, onEndReach } = props;
@@ -77,11 +76,5 @@ const RepositoryList = () => {
     onEndReach={onEndReach}
   />;
 };
-
-const styles = StyleSheet.create({
-  separator: {
-    height: 10,
-  }
-});
 
 export default RepositoryList;

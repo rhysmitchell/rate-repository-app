@@ -7,6 +7,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { AUTHORIZE_USER } from '../graphql/queries';
 import { useApolloClient } from "@apollo/react-hooks";
 import AuthStorageContext from '../contexts/AuthStorageContext';
+import MyReviews from './MyReviews';
 
 const styles = StyleSheet.create({
     container: {
@@ -37,6 +38,7 @@ const AppBar = () => {
                 {authorizedUser && (
                     <>
                         <Link to='/create-review' component={AppBarTab}>Create a review</Link>
+                        <Link to='/my-reviews' component={AppBarTab}>My reviews</Link>
                         <Link to='/' onPress={signOut} component={AppBarTab}>Sign Out</Link>
                     </>
                 )}
