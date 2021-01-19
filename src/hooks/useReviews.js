@@ -2,12 +2,10 @@ import { useQuery } from "@apollo/react-hooks";
 import { GET_REVIEWS, GET_USER_REVIEWS } from "../graphql/queries";
 
 export const useUserReviews = (variables) => {
-    const { data, loading, fetchMore, ...result } = useQuery(GET_USER_REVIEWS, {
+    const { data, loading, fetchMore, refetch, ...result } = useQuery(GET_USER_REVIEWS, {
         fetchPolicy: "cache-and-network",
         variables,
     });
-
-    console.log(data);
 
     const handleFetchMore = () => {
         const canFetchMore =
@@ -48,6 +46,7 @@ export const useUserReviews = (variables) => {
         reviews: data ? data.authorizedUser.reviews.edges.map((edge) => edge.node) : undefined,
         fetchMore: handleFetchMore,
         loading,
+        refetch,
         ...result,
     };
 };

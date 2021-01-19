@@ -118,6 +118,7 @@ query AuthorizedUser(
           createdAt
           repository {
             fullName
+            id
           }
           repositoryId
           user {

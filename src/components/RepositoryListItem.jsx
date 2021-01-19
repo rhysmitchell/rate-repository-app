@@ -46,8 +46,11 @@ const styles = StyleSheet.create({
         alignItems: 'stretch',
         justifyContent: 'space-between',
         backgroundColor: 'white',
-        paddingLeft: '2em',
-        paddingRight: '2em',
+        paddingLeft: '10%',
+        paddingRight: '10%',
+    },
+    indicatorText: {
+        fontWeight: 'bold',
     },
     urlButton: {
         backgroundColor: theme.colors.primary,
@@ -68,7 +71,6 @@ const styles = StyleSheet.create({
         borderRadius: 2,
     },
     ratingContainer: {
-        textAlign: 'center',
         borderWidth: 2,
         borderColor: '#1461ac',
         width: 50,
@@ -76,6 +78,9 @@ const styles = StyleSheet.create({
         borderRadius: 25,
         padding: 10,
         color: '#1461ac',
+    },
+    ratingText: {
+        textAlign: 'center',
     },
     ratingContentContainer: {
         flex: 1,
@@ -87,13 +92,15 @@ const styles = StyleSheet.create({
     },
 });
 
-export const ReviewItem = ({ review }) => {
+const ReviewItem = ({ review }) => {
     const formattedCreatedAt = new Date(`${review.createdAt}`).toLocaleDateString();
 
     return (<>
         <View style={styles.container}>
             <View style={styles.ratingContainer}>
-                {review.rating}
+                <Text style={styles.ratingText}>
+                    {review.rating}
+                </Text>
             </View>
 
             <View style={styles.ratingContentContainer}>
@@ -108,7 +115,7 @@ export const ReviewItem = ({ review }) => {
 export const RepositoryListItemFromUrl = () => {
     const { id } = useParams();
     const item = useRepository({ id });
-    const { reviews, fetchMore } = useReviews({ id, first: 8});
+    const { reviews, fetchMore } = useReviews({ id, first: 8 });
 
     if (!item) {
         return null;
@@ -167,34 +174,26 @@ export const RepositoryListItem = ({ item, children }) => {
             </View>
 
             <View style={styles.indicatorContainer}>
-                <Text testID="testRepoStargazersCount">
-                    <strong>
-                        {NumAbbr(item.stargazersCount, 1)}
-                    </strong>
+                <Text style={styles.indicatorText} testID="testRepoStargazersCount">
+                    {NumAbbr(item.stargazersCount, 1)}
                     {'\n'}
                         Stars
                     </Text>
 
-                <Text testID="testRepoForkCount">
-                    <strong>
-                        {NumAbbr(item.forksCount, 1)}
-                    </strong>
+                <Text style={styles.indicatorText} testID="testRepoForkCount">
+                    {NumAbbr(item.forksCount, 1)}
                     {'\n'}
                         Forks
                     </Text>
 
-                <Text testID="testRepoReviewCount">
-                    <strong>
-                        {item.reviewCount}
-                    </strong>
+                <Text style={styles.indicatorText} testID="testRepoReviewCount">
+                    {item.reviewCount}
                     {'\n'}
                         Reviews
                     </Text>
 
-                <Text testID="testRepoRatingAverage">
-                    <strong>
-                        {item.ratingAverage}
-                    </strong>
+                <Text style={styles.indicatorText} testID="testRepoRatingAverage">
+                    {item.ratingAverage}
                     {'\n'}
                         Rating
                     </Text>
